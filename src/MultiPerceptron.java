@@ -11,10 +11,11 @@ public class MultiPerceptron {
     private static final double sigmoidSteepParam = 0.01;
     int numberOfPerceptrons;
     private Perceptron[] perceptronArray;
+    private static final int NUMBER_OF_ITERATION_TO_LOG_AFTER = 50000;
     private static final IActivationFunction activationFunction = (x) -> {
-        double toReturn = 1d / (1d + Math.exp(-x* sigmoidSteepParam));
+//        double toReturn = 1d / (1d + Math.exp(-x* sigmoidSteepParam));
 //        System.out.println(toReturn);
-        return toReturn;
+        return x;
 
     };
 
@@ -59,6 +60,7 @@ public class MultiPerceptron {
 
 
     public void teachPerceptrons() {
+        System.out.println("Uczenie perceptronów...");
         double wartoscBledu = 1;
 
         //Stworzenie wektora z oczekiwanych wyjść
@@ -74,7 +76,7 @@ public class MultiPerceptron {
             for (int i = 0; i < objectsDataTrain.size(); i++) {
                 double[] resultArr = new double[numberOfPerceptrons];
                 for (int j = 0; j < numberOfPerceptrons; j++)
-                    resultArr[j] = perceptronArray[j].teachPerceptronForSigmoid(objectsDataTrain.get(i));
+                    resultArr[j] = perceptronArray[j].teachPerceptron(objectsDataTrain.get(i));
 
                 int maxActivationPerceptronIndex = findMaxIndex(resultArr);
                 result[i] = parseResultHashMap.get(perceptronArray[maxActivationPerceptronIndex].getLookedForParam());
@@ -83,8 +85,8 @@ public class MultiPerceptron {
                 wartoscBledu += perceptronArray[i].iterationError(expectedResult, result,parseResultHashMap);
             wartoscBledu = wartoscBledu /3;
             iter++;
-            if (iter % 50000 == 0)
-                System.out.println(wartoscBledu);
+            if (iter % NUMBER_OF_ITERATION_TO_LOG_AFTER == 0)
+                System.out.println(String.format("Aktualna wartość E po %d : %f", iter,wartoscBledu));
         }
         System.out.println("Result:");
         for (int i = 0; i < objectsDataTrain.size(); i++) {

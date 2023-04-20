@@ -7,10 +7,10 @@ import java.util.LinkedHashMap;
 import java.util.Scanner;
 
 public class Main {
-    public static double alfa = 0.01;
-    public static double Emax = 0.017;
-    private static final String pathToTrainData = "C:\\Users\\tpawl\\Downloads\\drive-download-20230415T184539Z-001\\lang.train.csv";
-    private static final String pathToTestData = "C:\\Users\\tpawl\\Downloads\\drive-download-20230415T184539Z-001\\lang.test.csv";
+    public static double alfa = 0.0001;
+    public static double Emax = 0.004;
+    private static final String pathToTrainData = "Data/lang.train.csv";
+    private static final String pathToTestData = "Data/lang.test.csv";
     private static HashMap<String, Integer> parseResultHashMap = new LinkedHashMap<>();
 
     private static ArrayList<MLVector<String>> objects_data_train;
@@ -83,9 +83,9 @@ public class Main {
 
 
     public static void testForVector() {
-        System.out.println("Podaj atrybuty");
+        System.out.println("Podaj tekst");
         String input = new Scanner(System.in).nextLine();
-        MLVector inputMLVector = MLVector.parseStringToMLVector(input);
+        MLVector inputMLVector = MLVector.parseStringToMLVector("TEST,"+input);
 //        System.out.println("Provided vector: " + inputMLVector);
         String result = (String) parseResultHashMap.keySet().toArray()[multiPerceptron.calcResult(inputMLVector)];
         System.out.println("Result: " + result);
