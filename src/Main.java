@@ -24,7 +24,7 @@ public class Main {
 
         while (true) {
             System.out.println("1. Naucz algorytm na danych testowych");
-            System.out.println("2. Podaj własny wektor");
+            System.out.println("2. Przetestuj własny tekst");
             System.out.println("3. Wprowadz Emax");
             System.out.println("4. Wprowadz nowe alfa");
             System.out.println("5. Przetestuj na zbiorze testowym");
